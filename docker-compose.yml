@@ -10,7 +10,7 @@ services:
     container_name: ai-dev-litellm
 
     ports:
-      - "9400:4000"
+      - "9500:4000"
 
     volumes:
       - ./litellm/config.yaml:/app/config.yaml
