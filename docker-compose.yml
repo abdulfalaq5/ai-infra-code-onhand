@@ -36,7 +36,7 @@ services:
   # OPENHANDS (AI AGENT)
   # =========================
   openhands:
-    image: docker.io/all-hands-ai/openhands:latest
+    image: ghcr.io/all-hands-ai/openhands:latest
     container_name: ai-dev-openhands
 
     ports:
