@@ -1,0 +1,66 @@
+version: "3.9"
+
+services:
+
+  # =========================
+  # LITELLM (AI GATEWAY)
+  # =========================
+  litellm:
+    image: ghcr.io/berriai/litellm:main
+    container_name: ai-dev-litellm
+
+    ports:
+      - "9400:4000"
+
+    volumes:
+      - ./litellm/config.yaml:/app/config.yaml
+
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
+      SUMOPOD_API_KEY: ${SUMOPOD_API_KEY}
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+    command:
+      - "--config"
+      - "/app/config.yaml"
+
+    restart: unless-stopped
+
+    networks:
+      - infra_net
+
+  # =========================
+  # OPENHANDS (AI AGENT)
+  # =========================
+  openhands:
+    image: docker.io/all-hands-ai/openhands:latest
+    container_name: ai-dev-openhands
+
+    ports:
+      - "3000:3000"
+
+    volumes:
+      - /home/falaq/Documents:/workspace
+
+    environment:
+      LLM_API_BASE: http://ai-dev-litellm:4000/v1
+      LLM_API_KEY: dummy
+      WORKSPACE_MOUNT: /workspace
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+    depends_on:
+      - litellm
+
+    restart: unless-stopped
+
+    networks:
+      - infra_net
+
+networks:
+  infra_net:
+    external: true

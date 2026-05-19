@@ -1,0 +1,65 @@
+model_list:
+
+  # =========================
+  # OPENAI (PREMIUM)
+  # =========================
+  - model_name: gpt-4o
+    litellm_params:
+      model: openai/gpt-4o
+      api_key: os.environ/OPENAI_API_KEY
+
+  - model_name: gpt-4.1
+    litellm_params:
+      model: openai/gpt-4.1
+      api_key: os.environ/OPENAI_API_KEY
+
+
+  # =========================
+  # OPENROUTER (CHEAP / FREE)
+  # =========================
+  - model_name: deepseek-free
+    litellm_params:
+      model: openrouter/deepseek/deepseek-chat:free
+      api_key: os.environ/OPENROUTER_API_KEY
+
+  - model_name: qwen-coder
+    litellm_params:
+      model: openrouter/qwen/qwen-2.5-coder-32b-instruct
+      api_key: os.environ/OPENROUTER_API_KEY
+
+  - model_name: llama-70b
+    litellm_params:
+      model: openrouter/meta-llama/llama-3.3-70b-instruct
+      api_key: os.environ/OPENROUTER_API_KEY
+
+  - model_name: mistral-fast
+    litellm_params:
+      model: openrouter/mistralai/mistral-7b-instruct
+      api_key: os.environ/OPENROUTER_API_KEY
+
+
+  # =========================
+  # SUMOPOD (PRIVATE MODELS)
+  # =========================
+  - model_name: sumopod-qwen
+    litellm_params:
+      model: openai/Qwen/Qwen3-Coder
+      api_base: https://ai.sumopod.com/v1
+      api_key: os.environ/SUMOPOD_API_KEY
+
+
+  # =========================
+  # OLLAMA (LOCAL - OPTIONAL NEXT STEP)
+  # =========================
+  - model_name: local-qwen
+    litellm_params:
+      model: ollama/qwen2.5-coder:7b
+      api_base: http://host.docker.internal:11434
+
+  - model_name: local-phi3
+    litellm_params:
+      model: ollama/phi3:mini
+      api_base: http://host.docker.internal:11434
+
+general_settings:
+  master_key: "dummy"
